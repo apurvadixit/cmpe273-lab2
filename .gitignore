@@ -6,6 +6,9 @@ lib-cov
 *.out
 *.pid
 *.gz
+*.js.swo
+*.js.swp
+*.js.save
 
 pids
 logs
