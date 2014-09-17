@@ -64,7 +64,7 @@ function del(request, response) {
 			response.end("Logged out");
 		}
 		else
-			response.end("Already logged out");
+			response.end(" logged out");
 	}
 	else
 		response.end("Invalid session");
@@ -76,19 +76,21 @@ function put(request, response) {
 console.log("PUT:: Re-generate new session_id for the same user");
 	// TODO: refresh session id; similar to the post() function
 	var cookies= request.cookies;
-	console.log(cookies);
+	console.log(cookies.session_id);
 	if('session_id' in cookies)
 	{
-		var sid= cookies('sid');
+		var sid= cookies['session_id'];
 		var name= login.isName(sid);
 		var email= login.isEmail(sid);
 		login.logout(sid);
 		var newSessionId=login.login(name,email);
-		response.setHeader('Set-cookie','sid' +newSessionId);
+		response.setHeader('Set-cookie','sid=' +newSessionId);
 		response.end("Re-freshed session id\n");
 	}
 	else
- 	{ response.end("Invalid session id");}
+ 	{ 
+		console.log(request.cookies.session_id);
+		response.end("Invalid session id");}
 
 };
 app.listen(8000);
